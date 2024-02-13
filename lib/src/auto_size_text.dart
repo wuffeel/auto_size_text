@@ -32,7 +32,7 @@ class AutoSizeText extends StatefulWidget {
     this.textScaleFactor,
     this.maxLines,
     this.semanticsLabel,
-    this.placeholderDimensions = const [],
+    this.placeholderDimensions,
   })  : textSpan = null,
         super(key: key);
 
@@ -58,7 +58,7 @@ class AutoSizeText extends StatefulWidget {
     this.textScaleFactor,
     this.maxLines,
     this.semanticsLabel,
-    this.placeholderDimensions = const [],
+    this.placeholderDimensions,
   })  : data = null,
         super(key: key);
 
@@ -217,7 +217,7 @@ class AutoSizeText extends StatefulWidget {
   /// ```
   final String? semanticsLabel;
 
-  final List<PlaceholderDimensions> Function(Size) placeholderDimensions;
+  final List<PlaceholderDimensions> Function(Size)? placeholderDimensions;
 
   @override
   _AutoSizeTextState createState() => _AutoSizeTextState();
@@ -407,9 +407,11 @@ class _AutoSizeTextState extends State<AutoSizeText> {
       strutStyle: widget.strutStyle,
     );
 
-    textPainter.setPlaceholderDimensions(
-      widget.placeholderDimensions(textPainter.size),
-    );
+    if (widget.placeholderDimensions != null) {
+      textPainter.setPlaceholderDimensions(
+        widget.placeholderDimensions!(textPainter.size),
+      );
+    }
 
     textPainter.layout(maxWidth: constraints.maxWidth);
 
