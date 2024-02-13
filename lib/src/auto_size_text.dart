@@ -407,13 +407,13 @@ class _AutoSizeTextState extends State<AutoSizeText> {
       strutStyle: widget.strutStyle,
     );
 
+    textPainter.layout(maxWidth: constraints.maxWidth);
+
     if (widget.placeholderDimensions != null) {
       textPainter.setPlaceholderDimensions(
         widget.placeholderDimensions!(textPainter.size),
       );
     }
-
-    textPainter.layout(maxWidth: constraints.maxWidth);
 
     return !(textPainter.didExceedMaxLines ||
         textPainter.height > constraints.maxHeight ||
